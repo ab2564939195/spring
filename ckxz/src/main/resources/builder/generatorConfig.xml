@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!--mybatis自动生成实体类和mapper文件-->
+<generatorConfiguration>
+    <!--切换为本地的地址-->
+    <classPathEntry location="D:\environment\maven\repository\mysql\mysql-connector-java\5.1.30\mysql-connector-java-5.1.30.jar"/>
+    <context id="Mysql" targetRuntime="MyBatis3Simple"><!--defaultModelType="flat">-->
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <property name="mergeable" value="false"></property>
+        <commentGenerator>
+            <property name="suppressAllComments" value="false"></property>
+            <property name="suppressDate" value="true"></property>
+            <property name="javaFileEncoding" value="utf-8"/>
+        </commentGenerator>
+        <!--切换为自己的用户名和密码-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/ckxz?characterEncoding=utf-8"
+                        userId="root"
+                        password="abc123">
+        </jdbcConnection>
+
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+        <!--实体类-->
+        <javaModelGenerator targetPackage="${targetModelPackage}" targetProject="${targetJavaProject}">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+        <!--mapper xml文件-->
+        <sqlMapGenerator targetPackage="${targetXMLPackage}"  targetProject="${targetResourcesProject}">
+        <!--<sqlMapGenerator targetPackage="${targetMapperPackage}"  targetProject="${targetJavaProject}">-->
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+        <!--mapper接口-->
+        <javaClientGenerator targetPackage="${targetMapperPackage}" targetProject="${targetJavaProject}" type="XMLMAPPER" >
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+        <table schema="${tableschema}" tableName="${tableName}" domainObjectName="${tabledomainObjectName}" />
+            <!--<generatedKey column="id" identity="true"/>-->
+    </context>
+</generatorConfiguration>

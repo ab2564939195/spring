@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <div th:insert="basic::basic"></div>
+    <script type="text/javascript">
+        $(function () {
+            $("button[name=queryGradeButton]").click(function () {
+                var gradeId=$(this).attr("grade");
+                $.get("/grade/queryGradeById",{"gradeId":gradeId},
+                function (grade) {
+                    $("#queryGradeId").html(grade.id);
+                    $("#queryGradeName").html(grade.gradeName);
+                    var date=new Date(grade.createDate);
+                    var y=date.getFullYear();
+                    var m=date.getMonth()+1;
+                    var d=date.getDate();
+                    $("#queryCreateDate").html(y+"年"+m+"月"+d+"日");
+
+                    $("#queryDetails").html(grade.details);
+                    $("#queryGradeModal").modal("show");
+                })
+
+
+            })
+        })
+    </script>
+</head>
+<body>
+<div class="container">
+    <div th:insert="top::top"></div>
+    <div class="row">
+        <div th:insert="left::left"></div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <h3>班级管理</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-2">
+                <table class="table table-striped">
+                    <tr>
+                        <td>班级id</td>
+                        <td>班级名称</td>
+                        <td>创建时间</td>
+                        <td>操作</td>
+                    </tr>
+                    <tr th:each="grade:${pageInfo.list}">
+                        <td th:text="${grade.id}"></td>
+                        <td th:text="${grade.gradeName}"></td>
+                        <td th:text="${#dates.format(grade.createDate,'yyyy-MM-dd')}"></td>
+                        <td>
+                            <button class="btn btn-info" th:grade="${grade.id}"
+                                    name="queryGradeButton">详情</button>
+                            <button class="btn btn-info" th:grade="${grade.id}">修改</button>
+                            <button class="btn btn-danger" th:grade="${grade.id}">删除</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div th:insert="page::page"></div>
+
+
+        </div>
+    </div>
+    <div th:insert="footer::footer"></div>
+</div>
+    <!--班级详情模态框-->
+<div class="modal fade" tabindex="-1" role="dialog" id="queryGradeModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">班级详情</h4>
+            </div>
+            <div class="modal-body">
+                <table>
+                    <tr>
+                        <td>班级id：</td>
+                        <td id="queryGradeId"></td>
+                    </tr>
+                    <tr>
+                        <td>班级名称：</td>
+                        <td id="queryGradeName"></td>
+                    </tr>
+                    <tr>
+                        <td>创建时间：</td>
+                        <td id="queryCreateDate"></td>
+                    </tr>
+                    <tr>
+                        <td>班级描述：</td>
+                        <td id="queryDetails"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+</body>
+</html>

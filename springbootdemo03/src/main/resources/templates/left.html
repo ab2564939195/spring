@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:fragment="left">
+        <div class="col-md-2">
+            <ul class="nav nav-pills nav-stacked">
+                <li role="presentation" class="active"><a >菜单</a></li>
+                <li role="presentation">
+                    <a th:href="@{/grade/queryAll(pageNum=1,pageSize=5)}">班级管理</a>
+                </li>
+                <li role="presentation">
+                    <a href="#">学生管理</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.app.ckxz.company.mapper.CompanyMapper" >
+  <resultMap id="BaseResultMap" type="com.app.ckxz.company.moder.Company" >
+    <id column="id" property="id" javaType="Long" />
+    <result column="name" property="name" javaType="String" />
+    <result column="uuid" property="uuid" javaType="String" />
+    <result column="occupancy_time" property="occupancyTime" javaType="Date" />
+    <result column="created_time" property="createdTime" javaType="Date" />
+    <result column="state" property="state" javaType="int" />
+    <result column="wuye_uuid" property="wuyeUuid" javaType="String" />
+    <result column="user_admin_uuid" property="userAdminUuid" javaType="String" />
+    <result column="dock_pkid" property="dockPkid" javaType="String" />
+    <result column="program_num" property="programNum" javaType="String" />
+    <result column="address" property="address" javaType="String" />
+    <result column="phone" property="phone" javaType="String" />
+    <result column="website" property="website" javaType="String" />
+    <result column="introduction" property="introduction" javaType="String" />
+    <result column="note" property="note" javaType="String" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from company
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.app.ckxz.company.moder.Company" >
+    insert into company (id, name, uuid, 
+      occupancy_time, created_time, state, 
+      wuye_uuid, user_admin_uuid, dock_pkid, 
+      program_num, address, phone, 
+      website, introduction, note
+      )
+    values (#{id}, #{name}, #{uuid}, 
+      #{occupancyTime}, #{createdTime}, #{state}, 
+      #{wuyeUuid}, #{userAdminUuid}, #{dockPkid}, 
+      #{programNum}, #{address}, #{phone}, 
+      #{website}, #{introduction}, #{note}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.app.ckxz.company.moder.Company" >
+    update company
+    set name = #{name},
+      uuid = #{uuid},
+      occupancy_time = #{occupancyTime},
+      created_time = #{createdTime},
+      state = #{state},
+      wuye_uuid = #{wuyeUuid},
+      user_admin_uuid = #{userAdminUuid},
+      dock_pkid = #{dockPkid},
+      program_num = #{programNum},
+      address = #{address},
+      phone = #{phone},
+      website = #{website},
+      introduction = #{introduction},
+      note = #{note}
+    where id = #{id}
+  </update>
+
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, name, uuid, occupancy_time, created_time, state, wuye_uuid, user_admin_uuid,
+    dock_pkid, program_num, address, phone, website, introduction, note
+    from company
+    where id = #{id}
+  </select>
+
+
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, name, uuid, occupancy_time, created_time, state, wuye_uuid, user_admin_uuid,
+    dock_pkid, program_num, address, phone, website, introduction, note
+    from company
+  </select>
+</mapper>

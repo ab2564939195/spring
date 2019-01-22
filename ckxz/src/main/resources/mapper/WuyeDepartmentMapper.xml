@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.app.ckxz.department.mapper.WuyeDepartmentMapper" >
+  <resultMap id="BaseResultMap" type="com.app.ckxz.department.moder.WuyeDepartment" >
+    <id column="id" property="id" javaType="Long" />
+    <result column="uuid" property="uuid" javaType="String" />
+    <result column="wuye_uuid" property="wuyeUuid" javaType="String" />
+    <result column="department_name" property="departmentName" javaType="String" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from wuye_department
+    where uuid = #{uuid}
+  </delete>
+  <insert id="insert" parameterType="com.app.ckxz.department.moder.WuyeDepartment" >
+    insert into wuye_department (id, uuid, wuye_uuid, 
+      department_name)
+    values (#{id}, #{uuid}, #{wuyeUuid}, 
+      #{departmentName})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.app.ckxz.department.moder.WuyeDepartment" >
+    update wuye_department
+    set wuye_uuid = #{wuyeUuid},
+      department_name = #{departmentName}
+    where uuid = #{uuid}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, uuid, wuye_uuid, department_name
+    from wuye_department
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, uuid, wuye_uuid, department_name
+    from wuye_department
+  </select>
+
+  <select id="selectAllByWuYeUUid" resultMap="BaseResultMap" parameterType="java.util.Map">
+      select id, uuid, wuye_uuid, department_name
+      from wuye_department
+      <where>
+        <if test="wuyeUuid != null and  wuyeUuid != ''">
+          wuye_uuid = #{wuyeUuid}
+        </if>
+        <trim prefix="and">
+          <if test="departmentName != null and departmentName != ''">
+            department_name like #{departmentName}
+          </if>
+        </trim>
+      </where>
+  </select>
+</mapper>

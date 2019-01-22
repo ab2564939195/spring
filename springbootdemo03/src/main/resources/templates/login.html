@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <div th:insert="basic::basic"></div>
+</head>
+<body>
+
+    <div class="container">
+        <div class="row">
+        <div class="col-md-2 col-md-offset-5">
+           <h2>登录</h2>
+        </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-2">
+                <form action="login" method="post">
+                    <div class="form-group">
+                        <label >用户名：</label>
+                        <input type="text" class="form-control"  placeholder="用户名" name="userName">
+                    </div>
+                    <div class="form-group">
+                        <label >密码：</label>
+                        <input type="password" class="form-control"  placeholder="密码" name="password">
+                    </div>
+
+                    <button type="submit" class="btn btn-default">提交</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <div>
+        <h5 th:text="${msg}"></h5>
+    </div>
+</body>
+</html>
